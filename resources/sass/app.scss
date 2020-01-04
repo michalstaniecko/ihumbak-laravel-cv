@@ -8,6 +8,10 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
 
+.container-fluid {
+    max-width: 1140px;
+}
+
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

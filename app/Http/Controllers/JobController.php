@@ -18,7 +18,7 @@ class JobController extends Controller {
     }
 
     public function edit(Job $job) {
-        $projects = Project::whereNull('job_id');
+        $projects = auth()->user()->projects()->whereNull('job_id')->get();
         return view('job.edit', compact('job', 'projects'));
     }
 
@@ -41,7 +41,10 @@ class JobController extends Controller {
 
         $job = auth()->user()->jobs()->create($data);
 
-        $projects = Project::whereIn('id',$dataProjects)->update(['job_id'=>$job->id]);
+        $projects = Project::whereIn('id',$dataProjects)->update([
+            'job_id'=>$job->id,
+            'commercial' => true
+        ]);
 
         return redirect('/job');
     }
@@ -54,7 +57,19 @@ class JobController extends Controller {
             'end'=>'nullable|date',
         ]);
 
+
+        $dataProjects =  \request()->validate([
+            'projects.*' => ''
+        ]);
+
+
         $job->update($data);
+
+
+        $projects = Project::whereIn('id',$dataProjects['projects'])->update([
+            'job_id'=>$job->id,
+            'commercial' => true
+        ]);
 
         return redirect('/job')->with('status', 'Job edited');
     }

@@ -30,12 +30,45 @@ class ProjectController extends Controller
            'name'=>'required',
            'description'=>'required',
            'tools'=>'required',
-           'repo'=>'nullable|url'
+           'repo'=>'nullable|url',
+           'commercial'=>'boolean'
         ]);
 
         auth()->user()->projects()->create($data);
 
         return redirect('/project');
 
+    }
+
+    public function update(Project $project) {
+
+        $data=\request()->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'tools'=>'required',
+            'repo'=>'nullable|url',
+            'commercial'=>'boolean'
+        ]);
+
+        $project->update($data);
+
+        if (!$data['commercial']) {
+            $project->update([
+               'job_id' => null
+            ]);
+        }
+
+        return redirect('/project');
+    }
+
+
+    public function destroy() {
+
+        $data = \request()->validate([
+            'projects' =>''
+        ]);
+
+        Project::destroy($data['projects']);
+        return redirect('/project')->with('status','Project deleted');
     }
 }

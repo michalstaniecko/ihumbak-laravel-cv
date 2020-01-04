@@ -32,4 +32,6 @@ Route::patch('/job/{job}', 'JobController@update');
 Route::get('/project', 'ProjectController@index');
 Route::get('/project/create', 'ProjectController@create');
 Route::get('/project/{project}/edit', 'ProjectController@edit');
+Route::patch('/project/{project}', 'ProjectController@update');
 Route::post('/project', 'ProjectController@store');
+Route::delete('/project', 'ProjectController@destroy');
