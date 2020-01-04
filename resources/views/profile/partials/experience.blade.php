@@ -1,4 +1,3 @@
-
 <div class="row justify-content-center pb-5">
     <div class="col-8">
         <div class="card">
@@ -12,23 +11,30 @@
                     </div>
                     <div class="pl-3">
                         <ul class="list-unstyled">
-                            <li>
-                                <div>
+                            @forelse($profile->user->jobs as $job)
+                                <li>
+                                    <div>
 
-                                    <strong>Agencja John Pitcher</strong> - od lutego 2017 roku
-                                </div>
-                                <div><small><strong>Stanowisko:</strong> Front-End Developer</small></div>
-                                <ul class="">
-                                    <li>
-                                        <div>
+                                        <strong>{{ $job->name }}</strong> - od {{ $job->start }}
+                                    </div>
+                                    <div><small><strong>Stanowisko:</strong> {{ $job->position }}</small></div>
+                                    <ul class="">
+                                        @forelse($job->projects as $project)
+                                            <li>
+                                                <div>
 
-                                            <strong>efl.pl</strong> - wdrożenie nowego designu (motywu WordPress) w oparciu o projekty PSD oraz rozwój serwisu.
-                                        </div>
-                                        <div><small>WordPress, SCSS, JavaScript, jQuery, HMTL, PHP, git, node.js, grunt</small></div>
-                                    </li>
-
-                                </ul>
-                            </li>
+                                                    <strong>{{ $project->name }}</strong> - {{ $project->description }}
+                                                </div>
+                                                <div><small>{{ $project->tools }}</small></div>
+                                            </li>
+                                        @empty
+                                            <li>Brak</li>
+                                        @endforelse
+                                    </ul>
+                                </li>
+                            @empty
+                                <li>Brak</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
@@ -39,24 +45,19 @@
                     </div>
                     <div class="pl-3">
                         <ul class="list-unstyled">
-                            <li>
-                                <div>
+                            @forelse($profile->user->privateProjects as $project)
+                                <li class="pb-3">
+                                    <div>
 
-                                    <strong>Agencja John Pitcher</strong> - od lutego 2017 roku
-                                </div>
-                                <div><small><strong>Stanowisko:</strong> Front-End Developer</small></div>
-                                <ul class="">
-                                    <li>
-                                        <div>
+                                        <strong>{{ $project->name }}</strong> - {{ $project->description }}
+                                    </div>
+                                    <div><small>{{ $project->tools }}</small></div>
+                                    <div><small><strong>Repozytorium:</strong> {{ $project->repo }}</small></div>
+                                </li>
+                            @empty
+                                <li>Brak</li>
+                            @endforelse
 
-                                            <strong>efl.pl</strong> - wdrożenie nowego designu (motywu WordPress) w oparciu o projekty PSD oraz rozwój serwisu.
-                                        </div>
-                                        <div><small>WordPress, SCSS, JavaScript, jQuery, HMTL, PHP, git, node.js, grunt</small></div>
-                                        <div><small><strong>Repozytorium:</strong> https://github.com</small></div>
-                                    </li>
-
-                                </ul>
-                            </li>
                         </ul>
                     </div>
                 </div>

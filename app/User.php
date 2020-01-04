@@ -49,6 +49,10 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
+    public function privateProjects() {
+        return $this->hasMany(Project::class)->where('commercial', false);
+    }
+
     public function jobs() {
         return $this->hasMany(Job::class);
     }
