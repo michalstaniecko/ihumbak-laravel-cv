@@ -2,6 +2,12 @@
 
 
 @section('content')
+
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-8 pb-5">
             Edit Jobs
@@ -64,19 +70,26 @@
                             </select>
                         </div>
                     </div>
-                    <div>
-                        <ul>
-                            @forelse($job->projects as $project)
-                                <li>
-                                    {{ $project->name }}
-                                </li>
-
-                            @empty
-                            @endforelse
-                        </ul>
-                    </div>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </form>
+            </div>
+
+            <div>
+                <ul>
+                    @forelse($job->projects as $project)
+                        <li>
+                            {{ $project->name }}
+                            <form method="post" action="/project/{{ $project->id }}/disconnect">
+                                @csrf
+                                @method('patch')
+                                <input type="hidden" name="job_id" value="" />
+                                <button type="submit" class="btn btn-sm btn-danger">Disconnect</button>
+                            </form>
+                        </li>
+
+                    @empty
+                    @endforelse
+                </ul>
             </div>
         </div>
 

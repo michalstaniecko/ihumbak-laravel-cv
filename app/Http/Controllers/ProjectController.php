@@ -71,4 +71,15 @@ class ProjectController extends Controller
         Project::destroy($data['projects']);
         return redirect('/project')->with('status','Project deleted');
     }
+
+    public function disconnect(Project $project) {
+        $data = \request()->validate([
+           'job_id' =>''
+        ]);
+        $project->update($data);
+
+        return back()->with('status', 'Project disconnected');
+    }
+
+
 }

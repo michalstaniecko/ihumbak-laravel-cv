@@ -29,20 +29,20 @@ class JobController extends Controller {
 
     public function store() {
         $data = \request()->validate([
-            'name'=>'required',
-            'position'=>'required',
-            'start'=>'date',
-            'end'=>'nullable|date',
+            'name' => 'required',
+            'position' => 'required',
+            'start' => 'date',
+            'end' => 'nullable|date',
         ]);
 
-        $dataProjects =  \request()->validate([
+        $dataProjects = \request()->validate([
             'projects' => ''
         ]);
 
         $job = auth()->user()->jobs()->create($data);
 
-        $projects = Project::whereIn('id',$dataProjects)->update([
-            'job_id'=>$job->id,
+        $projects = Project::whereIn('id', $dataProjects)->update([
+            'job_id' => $job->id,
             'commercial' => true
         ]);
 
@@ -50,36 +50,52 @@ class JobController extends Controller {
     }
 
     public function update(Job $job) {
-        $data= \request()->validate([
-            'name'=>'required',
-            'position'=>'required',
-            'start'=>'date',
-            'end'=>'nullable|date',
+        $data = \request()->validate([
+            'name' => 'required',
+            'position' => 'required',
+            'start' => 'date',
+            'end' => 'nullable|date',
         ]);
 
 
-        $dataProjects =  \request()->validate([
-            'projects.*' => ''
-        ]);
 
 
         $job->update($data);
 
 
-        $projects = Project::whereIn('id',$dataProjects['projects'])->update([
-            'job_id'=>$job->id,
-            'commercial' => true
+        $dataProjects = \request()->validate([
+            'projects' => ''
         ]);
+        if (!empty($dataProjects['projects'])){
+
+            $projects = Project::whereIn('id', $dataProjects['projects'])->update([
+                'job_id' => $job->id,
+                'commercial' => true
+            ]);
+        }
 
         return redirect('/job')->with('status', 'Job edited');
     }
 
     public function destroy() {
         $data = \request()->validate([
-           'jobs' =>''
+            'jobs' => ''
         ]);
 
+        $jobs = Job::find($data['jobs']);
+
+        $jobs->map(function ($job) {
+            $job->projects()->update([
+                'job_id' => null,
+            ]);
+            return $job;
+        });
+
+
         Job::destroy($data['jobs']);
-        return redirect('/job')->with('status','Job deleted');
+
+
+        return redirect('/job')->with('status', 'Job deleted');
     }
+
 }
