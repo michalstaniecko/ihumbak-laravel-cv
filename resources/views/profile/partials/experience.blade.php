@@ -1,4 +1,4 @@
-<div class="row justify-content-center pb-5">
+<div class="row justify-content-end pb-5">
     <div class="col-8">
         <div class="card">
 
@@ -15,7 +15,7 @@
                                 <li>
                                     <div>
 
-                                        <strong>{{ $job->name }}</strong> - od {{ $job->start }}
+                                        <strong>{{ $job->name }}</strong> - od {{date('F Y', strtotime($job->start))}}
                                     </div>
                                     <div><small><strong>Stanowisko:</strong> {{ $job->position }}</small></div>
                                     <ul class="">

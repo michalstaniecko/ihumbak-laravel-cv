@@ -12,12 +12,14 @@
                     <div class="form-row">
 
                         <div class="form-group col-6">
-                            <label  for="name">Name</label>
-                            <input class=" form-control form-control-sm" type="text" name="name" id="name" value="{{ $profile->name }}" />
+                            <label for="name">Name</label>
+                            <input class=" form-control form-control-sm" type="text" name="name" id="name"
+                                   value="{{ $profile->name }}"/>
                         </div>
                         <div class="form-group col-6">
-                            <label  for="lastname">Last Name</label>
-                            <input class=" form-control form-control-sm @error('lastname')is-invalid @enderror" type="text" name="lastname" id="lastname" value="{{ $profile->lastname }}" />
+                            <label for="lastname">Last Name</label>
+                            <input class=" form-control form-control-sm @error('lastname')is-invalid @enderror"
+                                   type="text" name="lastname" id="lastname" value="{{ $profile->lastname }}"/>
                             @error('lastname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -26,15 +28,19 @@
                     <div class="form-row">
 
                         <div class="form-group col-6">
-                            <label  for="date_of_birth">Date Of Birth</label>
-                            <input data-provide="datepicker" autocomplete="off"  class=" form-control form-control-sm @error('date_of_birth')is-invalid @enderror" type="text" name="date_of_birth" id="date_of_birth" value="{{ $profile->date_of_birth }}" />
+                            <label for="date_of_birth">Date Of Birth</label>
+                            <input data-provide="datepicker" autocomplete="off"
+                                   class=" form-control form-control-sm @error('date_of_birth')is-invalid @enderror"
+                                   type="text" name="date_of_birth" id="date_of_birth"
+                                   value="{{ $profile->date_of_birth }}"/>
                             @error('date_of_birth')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group col-6">
-                            <label  for="url">WWW</label>
-                            <input class=" form-control form-control-sm  @error('url')is-invalid @enderror" type="text" name="url" id="url" value="{{ $profile->url }}" />
+                            <label for="url">WWW</label>
+                            <input class=" form-control form-control-sm  @error('url')is-invalid @enderror" type="text"
+                                   name="url" id="url" value="{{ $profile->url }}"/>
                             @error('url')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -43,9 +49,28 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="description">Description</label>
-                            <textarea class="form-control form-control-sm" name="description" id="description"  >{{ $profile->description }}</textarea>
+                            <textarea class="form-control form-control-sm" name="description"
+                                      id="description">{{ $profile->description }}</textarea>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="language">Languages</label>
+                            <select name="language_id" class="custom-select-sm custom-select">
+                                @forelse($languages as $language)
+
+                                    <option value="{{ $language->id }}">{{ $language->name }}</option>
+
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="language">Level</label>
+                            <input type="text" name="level" class="form-control-sm form-control"/>
+                        </div>
+                    </div>
+
                     <button class="btn btn-primary" type="submit">Save</button>
                 </form>
             </div>

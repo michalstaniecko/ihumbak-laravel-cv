@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Language;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class ProfileController extends Controller
 
     public function edit() {
         $profile = auth()->user()->profile;
-        return view('profile.edit', compact('profile'));
+        $languages = Language::doesntHave('profiles')->get();
+        return view('profile.edit', compact('profile', 'languages'));
     }
 
     public function update() {
@@ -26,7 +28,11 @@ class ProfileController extends Controller
             'date_of_birth'=>'nullable|date',
             'description' => ''
         ]);
-        auth()->user()->profile->update($data);
+        $profile = auth()->user()->profile;
+
+        $profile->update($data);
+
+        $profile->languages()->attach(\request('language_id'), ['level'=>\request('level')]);
 
         return redirect('/profile/edit');
     }

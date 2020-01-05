@@ -1,5 +1,5 @@
 <div class="row justify-content-center pb-5">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <div class="card">
             <div class="card-header">Informacje podstawowe</div>
 
@@ -12,6 +12,14 @@
                     <li class="">Adres www: {{ $profile->url }}</li>
                     <li class="">Numer telefonu: {{ $profile->phone }}</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">O mnie</div>
+
+            <div class="card-body">
                 <div>
                     <p>
 

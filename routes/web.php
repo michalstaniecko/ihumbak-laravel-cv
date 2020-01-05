@@ -34,3 +34,7 @@ Route::patch('/project/{project}', 'ProjectController@update');
 Route::patch('/project/{project}/disconnect', 'ProjectController@disconnect');
 Route::post('/project', 'ProjectController@store');
 Route::delete('/project', 'ProjectController@destroy');
+
+Route::get('/language/create', 'LanguageController@create');
+Route::post('/language', 'LanguageController@store');
+Route::post('/language/{language}/assign', 'LanguageController@assign');
