@@ -6,14 +6,13 @@
             <div class="card-body">
                 <h5>Zainteresowania:</h5>
                 <ul class="list-unstyled">
-                    <li>
-                        Sport - trenuję crossfit od 2016 roku
+                    @forelse($profile->user->interests as $interest)
+                        <li>
+                            {{ $interest->interest }}
 
-                    </li>
-                    <li>
-                        Motoryzacja - turystyka motocyklowa od 2014 roku
-
-                    </li>
+                        </li>
+                    @empty
+                    @endforelse
                 </ul>
             </div>
         </div>
