@@ -88,12 +88,19 @@
             <ul class="list-unstyled">
                 @forelse($profile->languages as $language)
                     <li>
-                        {{ $language->name }}
-                        <form action="/language/{{ $language->id }}/unassign" method="post">
-                            @csrf
-                            @method('patch')
-                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                        </form>
+                        <div class="d-flex justify-content-between">
+                            <div>
+
+                                <strong>{{ $language->name }}</strong> - {{ $language->pivot->level }}
+                            </div>
+                            <div class="">
+                                <form action="/language/{{ $language->id }}/unassign" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                </form>
+                            </div>
+                        </div>
                     </li>
                 @empty
                 @endforelse

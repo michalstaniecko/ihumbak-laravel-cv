@@ -39,3 +39,11 @@ Route::get('/language/create', 'LanguageController@create');
 Route::post('/language', 'LanguageController@store');
 Route::post('/language/{language}/assign', 'LanguageController@assign');
 Route::patch('/language/{language}/unassign', 'LanguageController@unassign');
+
+
+Route::get('/interest', 'InterestController@index');
+Route::get('/interest/create', 'InterestController@create');
+Route::post('/interest', 'InterestController@store');
+Route::get('/interest/{interest}/edit', 'InterestController@edit');
+Route::patch('/interest/{interest}', 'InterestController@update');
+Route::delete('/interest/{interest}', 'InterestController@destroy');

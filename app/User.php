@@ -64,4 +64,8 @@ class User extends Authenticatable
     public function languages() {
         return $this->belongsToMany(Language::class);
     }
+
+    public function interests() {
+        return $this->hasMany(Interest::class);
+    }
 }
