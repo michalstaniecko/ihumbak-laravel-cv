@@ -9,10 +9,10 @@
                     <div class="h5">
                         Projekty komercyjne
                     </div>
-                    <div class="pl-3">
+                    <div class="">
                         <ul class="list-unstyled">
                             @forelse($profile->user->jobs as $job)
-                                <li>
+                                <li class="pb-3">
                                     <div>
 
                                         <strong>{{ $job->name }}</strong> - od {{date('F Y', strtotime($job->start))}}
@@ -38,12 +38,12 @@
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div class="pt-4">
 
                     <div class="h5">
                         Projekty prywatne
                     </div>
-                    <div class="pl-3">
+                    <div class="">
                         <ul class="list-unstyled">
                             @forelse($profile->user->privateProjects as $project)
                                 <li class="pb-3">

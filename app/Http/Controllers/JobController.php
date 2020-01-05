@@ -41,7 +41,8 @@ class JobController extends Controller {
 
         $job = auth()->user()->jobs()->create($data);
 
-        $projects = Project::whereIn('id', $dataProjects)->update([
+
+        $projects = Project::whereIn('id', $dataProjects['projects'])->update([
             'job_id' => $job->id,
             'commercial' => true
         ]);
