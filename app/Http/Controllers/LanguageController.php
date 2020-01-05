@@ -37,4 +37,9 @@ class LanguageController extends Controller
 
         return redirect('/profile/edit');
     }
+
+    public function unassign(Language $language) {
+        $language->profiles()->detach(auth()->user()->profile->id);
+        return redirect('/profile/edit');
+    }
 }

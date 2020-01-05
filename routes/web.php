@@ -38,3 +38,4 @@ Route::delete('/project', 'ProjectController@destroy');
 Route::get('/language/create', 'LanguageController@create');
 Route::post('/language', 'LanguageController@store');
 Route::post('/language/{language}/assign', 'LanguageController@assign');
+Route::patch('/language/{language}/unassign', 'LanguageController@unassign');

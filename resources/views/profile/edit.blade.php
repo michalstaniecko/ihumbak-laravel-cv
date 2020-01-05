@@ -13,14 +13,19 @@
 
                         <div class="form-group col-6">
                             <label for="name">Name</label>
-                            <input class=" form-control form-control-sm" type="text" name="name" id="name"
-                                   value="{{ $profile->name }}"/>
+                            <input class=" form-control form-control-sm @error('profile.name')is-invalid @enderror"
+                                   type="text" name="profile[name]" id="name"
+                                   value="{{ old('profile.name') ?? $profile->name }}"/>
+                            @error('profile.name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group col-6">
                             <label for="lastname">Last Name</label>
-                            <input class=" form-control form-control-sm @error('lastname')is-invalid @enderror"
-                                   type="text" name="lastname" id="lastname" value="{{ $profile->lastname }}"/>
-                            @error('lastname')
+                            <input class=" form-control form-control-sm @error('profile.lastname')is-invalid @enderror"
+                                   type="text" name="profile[lastname]" id="lastname"
+                                   value="{{ old('profile.lastname') ?? $profile->lastname }}"/>
+                            @error('profile.lastname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -30,18 +35,19 @@
                         <div class="form-group col-6">
                             <label for="date_of_birth">Date Of Birth</label>
                             <input data-provide="datepicker" autocomplete="off"
-                                   class=" form-control form-control-sm @error('date_of_birth')is-invalid @enderror"
-                                   type="text" name="date_of_birth" id="date_of_birth"
-                                   value="{{ $profile->date_of_birth }}"/>
-                            @error('date_of_birth')
+                                   class=" form-control form-control-sm @error('profile.date_of_birth')is-invalid @enderror"
+                                   type="text" name="proile[date_of_birth]" id="date_of_birth"
+                                   value="{{ old('profile.date_of_birth') ?? $profile->date_of_birth }}"/>
+                            @error('profile.date_of_birth')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group col-6">
                             <label for="url">WWW</label>
-                            <input class=" form-control form-control-sm  @error('url')is-invalid @enderror" type="text"
-                                   name="url" id="url" value="{{ $profile->url }}"/>
-                            @error('url')
+                            <input class=" form-control form-control-sm  @error('profile.url')is-invalid @enderror"
+                                   type="text"
+                                   name="profile[url]" id="url" value="{{ old('profile.url') ?? $profile->url }}"/>
+                            @error('profile.url')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -49,15 +55,15 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="description">Description</label>
-                            <textarea class="form-control form-control-sm" name="description"
-                                      id="description">{{ $profile->description }}</textarea>
+                            <textarea class="form-control form-control-sm" name="profile[description]"
+                                      id="description">{{ old('profile.description') ?? $profile->description }}</textarea>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="language">Languages</label>
-                            <select name="language_id" class="custom-select-sm custom-select">
-                                @forelse($languages as $language)
+                            <select name="language[id]" class="custom-select-sm custom-select">
+                                @forelse($availableLanguages as $language)
 
                                     <option value="{{ $language->id }}">{{ $language->name }}</option>
 
@@ -66,8 +72,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="language">Level</label>
-                            <input type="text" name="level" class="form-control-sm form-control"/>
+                            <label for="level">Level</label>
+                            <input type="text" name="language[level]" class="form-control-sm form-control"/>
                         </div>
                     </div>
 
@@ -76,5 +82,22 @@
             </div>
         </div>
 
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <ul class="list-unstyled">
+                @forelse($profile->languages as $language)
+                    <li>
+                        {{ $language->name }}
+                        <form action="/language/{{ $language->id }}/unassign" method="post">
+                            @csrf
+                            @method('patch')
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </li>
+                @empty
+                @endforelse
+            </ul>
+        </div>
     </div>
 @endsection

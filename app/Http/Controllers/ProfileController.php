@@ -16,23 +16,29 @@ class ProfileController extends Controller
 
     public function edit() {
         $profile = auth()->user()->profile;
-        $languages = Language::doesntHave('profiles')->get();
-        return view('profile.edit', compact('profile', 'languages'));
+        $availableLanguages = Language::doesntHave('profiles')->get();
+        $languages = Language::all();
+
+        return view('profile.edit', compact('profile', 'languages', 'availableLanguages'));
     }
 
     public function update() {
         $data = \request()->validate([
-            'name' => 'required',
-            'lastname'=>'required',
-            'url' => 'nullable|url',
-            'date_of_birth'=>'nullable|date',
-            'description' => ''
+            'profile.name' => 'required',
+            'profile.lastname'=>'required',
+            'profile.url' => 'nullable|url',
+            'profile.date_of_birth'=>'nullable|date',
+            'profile.description' => '',
+            'language.id' =>'',
+            'language.level'=>''
         ]);
         $profile = auth()->user()->profile;
 
-        $profile->update($data);
+        $profile->update($data['profile']);
 
-        $profile->languages()->attach(\request('language_id'), ['level'=>\request('level')]);
+        $profile->languages()->syncWithoutDetaching([
+            $data['language']['id']=>['level'=>$data['language']['level']]
+        ]);
 
         return redirect('/profile/edit');
     }
