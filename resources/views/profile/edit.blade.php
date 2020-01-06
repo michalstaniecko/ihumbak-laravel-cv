@@ -54,6 +54,17 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="profile[phone]" id="phone"
+                                   class=" form-control form-control-sm  @error('profile.phone')is-invalid @enderror"
+                                   value="{{ old('profile.phone') ?? $profile->phone }}" />
+                            @error('profile.phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col">
                             <label for="description">Description</label>
                             <textarea class="form-control form-control-sm" name="profile[description]"

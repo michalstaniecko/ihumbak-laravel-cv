@@ -1,5 +1,5 @@
 <div class="row justify-content-end pb-5">
-    <div class="col-8">
+    <div class="col">
         <div class="card">
 
             <div class="card-header">Doświadczenie zawodowe</div>
@@ -15,7 +15,7 @@
                                 <li class="pb-3">
                                     <div>
 
-                                        <strong>{{ $job->name }}</strong> - od {{date('F Y', strtotime($job->start))}}
+                                        <strong>{{ $job->name }}</strong> - od {{ __(date('F', strtotime($job->start))) }} {{ __(date('Y', strtotime($job->start)))}}
                                     </div>
                                     <div><small><strong>Stanowisko:</strong> {{ $job->position }}</small></div>
                                     <ul class="">

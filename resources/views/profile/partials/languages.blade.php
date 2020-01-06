@@ -1,5 +1,5 @@
 <div class="row justify-content-end pb-5">
-    <div class="col-md-8">
+    <div class="col">
         <div class="card">
             <div class="card-header">Języki obce</div>
 

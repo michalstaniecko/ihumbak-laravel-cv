@@ -28,6 +28,7 @@ class ProfileController extends Controller
             'profile.lastname'=>'required',
             'profile.url' => 'nullable|url',
             'profile.date_of_birth'=>'nullable|date',
+            'profile.phone'=>'',
             'profile.description' => '',
             'language.id' =>'',
             'language.level'=>'required_with:language.id'

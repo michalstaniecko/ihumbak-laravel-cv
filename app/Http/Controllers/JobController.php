@@ -29,47 +29,43 @@ class JobController extends Controller {
 
     public function store() {
         $data = \request()->validate([
-            'name' => 'required',
-            'position' => 'required',
-            'start' => 'date',
-            'end' => 'nullable|date',
+            'job.name' => 'required',
+            'job.position' => 'required',
+            'job.start' => 'date',
+            'job.end' => 'nullable|date',
+            'project.ids' => ''
         ]);
 
-        $dataProjects = \request()->validate([
-            'projects' => ''
-        ]);
 
-        $job = auth()->user()->jobs()->create($data);
+        $job = auth()->user()->jobs()->create($data['job']);
 
+        if (!empty($data['project']['ids'])) {
 
-        $projects = Project::whereIn('id', $dataProjects['projects'])->update([
-            'job_id' => $job->id,
-            'commercial' => true
-        ]);
+            $projects = Project::whereIn('id', $data['project']['ids'])->update([
+                'job_id' => $job->id,
+                'commercial' => true
+            ]);
+        }
 
         return redirect('/job');
     }
 
     public function update(Job $job) {
         $data = \request()->validate([
-            'name' => 'required',
-            'position' => 'required',
-            'start' => 'date',
-            'end' => 'nullable|date',
+            'job.name' => 'required',
+            'job.position' => 'required',
+            'job.start' => 'date',
+            'job.end' => 'nullable|date',
+            'project.ids' => ''
         ]);
 
 
 
 
-        $job->update($data);
+        $job->update($data['job']);
+        if (!empty($data['project']['ids'])){
 
-
-        $dataProjects = \request()->validate([
-            'projects' => ''
-        ]);
-        if (!empty($dataProjects['projects'])){
-
-            $projects = Project::whereIn('id', $dataProjects['projects'])->update([
+            $projects = Project::whereIn('id', $data['project']['ids'])->update([
                 'job_id' => $job->id,
                 'commercial' => true
             ]);
