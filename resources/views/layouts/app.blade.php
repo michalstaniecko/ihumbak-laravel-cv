@@ -25,7 +25,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/cv') }}">
                 {{ config('app.name', 'Laravel') }}
                 <div class="navbar-brand-small">michal.staniecko@gmail.com</div>
             </a>
