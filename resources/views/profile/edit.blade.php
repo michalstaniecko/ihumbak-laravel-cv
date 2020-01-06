@@ -35,8 +35,9 @@
                         <div class="form-group col-6">
                             <label for="date_of_birth">Date Of Birth</label>
                             <input data-provide="datepicker" autocomplete="off"
+                                   data-date-format="yyyy-mm-dd"
                                    class=" form-control form-control-sm @error('profile.date_of_birth')is-invalid @enderror"
-                                   type="text" name="proile[date_of_birth]" id="date_of_birth"
+                                   type="text" name="profile[date_of_birth]" id="date_of_birth"
                                    value="{{ old('profile.date_of_birth') ?? $profile->date_of_birth }}"/>
                             @error('profile.date_of_birth')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -63,9 +64,10 @@
                         <div class="form-group col-md-6">
                             <label for="language">Languages</label>
                             <select name="language[id]" class="custom-select-sm custom-select">
+                                <option value="">Wybierz język</option>
                                 @forelse($availableLanguages as $language)
 
-                                    <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                    <option {{ old('language.id')==$language->id ? 'selected' : '' }} value="{{ $language->id }}">{{ $language->name }}</option>
 
                                 @empty
                                 @endforelse
@@ -73,7 +75,10 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="level">Level</label>
-                            <input type="text" name="language[level]" class="form-control-sm form-control"/>
+                            <input type="text" name="language[level]" class="@error('language.level')is-invalid @enderror form-control-sm form-control"/>
+                            @error('language.level')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 

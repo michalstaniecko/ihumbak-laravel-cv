@@ -30,15 +30,17 @@ class ProfileController extends Controller
             'profile.date_of_birth'=>'nullable|date',
             'profile.description' => '',
             'language.id' =>'',
-            'language.level'=>''
+            'language.level'=>'required_with:language.id'
         ]);
         $profile = auth()->user()->profile;
 
         $profile->update($data['profile']);
+        if (!empty($data['language']['id'])) {
 
-        $profile->languages()->syncWithoutDetaching([
-            $data['language']['id']=>['level'=>$data['language']['level']]
-        ]);
+            $profile->languages()->syncWithoutDetaching([
+                $data['language']['id']=>['level'=>$data['language']['level']]
+            ]);
+        }
 
         return redirect('/profile/edit');
     }
